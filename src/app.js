@@ -5,7 +5,6 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import { fileURLToPath } from 'url';
-import swaggerUi from 'swagger-ui-express';
 
 import { badJsonHandler, notFoundHandler, errorHandler } from './middlewares/index.js';
 import { Logger } from './config/logger.js';
