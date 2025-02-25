@@ -50,17 +50,14 @@ app.use(morgan(
 // handle bad json format
 app.use(badJsonHandler);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
-  explorer: true,
-
-  customCssUrl:
-  'https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.1/themes/3.x/theme-material.css',
-}));
-
-app.use('/health', healthRoute);
-
-// v1 api routes
-app.use('/v1', v1Routes);
+app.post('/verify', (req, res) => {
+  const { code } = req.body;
+  // Check if code is exactly 6 characters and last digit is not 7
+  if (!code || code.length !== 6 || code[5] === '7') {
+    return res.status(400).json({ message: 'Verification Error' });
+  }
+  res.json({ message: 'Success' });
+});
 
 // handle 404 not found error
 app.use(notFoundHandler);
