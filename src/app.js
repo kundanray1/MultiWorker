@@ -34,18 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
 
-app.use(morgan(
-  'combined',
-  {
-    write(message) {
-      logger.info(message.substring(0, message.lastIndexOf('\n')));
-    },
-    skip() {
-      return process.env.NODE_ENV === 'test';
-    },
-  },
-));
-
 // handle bad json format
 app.use(badJsonHandler);
 
@@ -58,6 +46,9 @@ app.post('/verify', (req, res) => {
   res.json({ message: 'Success' });
 });
 
+app.get('/', (req, res) => {
+  res.json({ message: 'Success' });
+});
 // handle 404 not found error
 app.use(notFoundHandler);
 
