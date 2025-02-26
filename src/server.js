@@ -1,6 +1,7 @@
 // server.js
-import cluster from 'cluster';
-import os from 'os';
+
+import cors from 'cors';
+
 import chalk from 'chalk';
 import stoppable from 'stoppable';
 import { fileURLToPath } from 'url';
@@ -12,7 +13,7 @@ import { Logger } from './config/logger.js';
 
 const logger = Logger(fileURLToPath(import.meta.url));
 const port = process.env.APP_PORT || 3000;
-
+app.use(cors({ origin: '*' }));
 // All workers call app.listen(port). They all share the same port.
 const server = app.listen(port, () => {
   logger.info(`Worker ${process.pid} - App running on port ${chalk.greenBright(port)}...`);
